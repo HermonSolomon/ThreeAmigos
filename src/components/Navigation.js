@@ -25,7 +25,7 @@ class Navigation extends Component {
     return (
       <header id={"header"}>
         <NavLink to="/" className="logo">
-          <img src="/img/logo.pngg" alt="" />
+          <img src="/img/logo.png" alt="" />
         </NavLink>
         {/* Menu Icon /> */}
         <div className="menu-icon">

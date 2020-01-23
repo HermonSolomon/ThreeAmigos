@@ -1,26 +1,37 @@
 import React, { Component } from "react";
-import { storeProducts, detailProduct, } from "./data";
-import { blogArticle, BlogDetail } from "./data";
+import {
+  storeProducts,
+  detailProduct,
+  blogArticle,
+  BlogDetail,
+  carouselData,
+  slideDetail
+} from "./data";
 
-const AppContext = React.createContext(); //(ReactContext) provider && consumer
+const AppContext = React.createContext();
 
 class AppProvider extends Component {
   state = {
     products: [],
     cart: [],
     blogArticle: [],
+    carouselData: [],
+    slideDetail: slideDetail,
     blogDetails: BlogDetail,
     detailProduct: detailProduct,
     modalOpen: false,
     modalProduct: detailProduct,
     cartSubTotal: 0,
     cartTax: 0,
-    cartTotal: 0
+    cartTotal: 0,
+    currentIndex: 0,
+    translateValue: 0
   };
 
   componentDidMount() {
     this.setProducts();
     this.setblogArticle();
+    this.setCarouselSlider();
   }
 
   setProducts = () => {
@@ -55,9 +66,6 @@ class AppProvider extends Component {
     });
   };
 
-
-
-
   setblogArticle = () => {
     let tempArticles = [];
     blogArticle.forEach(item => {
@@ -76,22 +84,46 @@ class AppProvider extends Component {
   // get BlogArticle
   getBlogArticle = id => {
     const article = this.state.blogArticle.find(item => item.id === id);
+    // console.log(article);
     return article;
   };
 
   handleBlogDetail = id => {
     const article = this.getBlogArticle(id);
     this.setState(() => {
+      return { blogDetails: article };
+    });
+  };
+
+  setCarouselSlider = () => {
+    let tempSlides = [];
+    carouselData.forEach(item => {
+      const singleItem = {
+        ...item
+      };
+      tempSlides = [...tempSlides, singleItem];
+    });
+    this.setState(() => {
       return {
-        blogDetail: article
+        carouselData: tempSlides
       };
     });
   };
 
+  getSlide = id => {
+    const slide = this.state.carouselData.find(item => item.id === id);
+    console.log(slide);
+    return slide;
+  };
 
-
-
-
+  handleSlideDetail = id => {
+    const slide = this.getSlide(id);
+    this.setState(() => {
+      return {
+        slideDetails: slide
+      };
+    });
+  };
   addToCart = id => {
     let tempProducts = [...this.state.products];
     const index = tempProducts.indexOf(this.getItem(id));
@@ -219,9 +251,9 @@ class AppProvider extends Component {
     let subTotal = 0;
     this.state.cart.map(item => (subTotal += item.total));
 
-    const tempTax = subTotal * 0.1; // 0.1 as tax is going to be 10%
+    const tempTax = subTotal * 0.1; // tax 0.1 === 10%
     const tax = parseFloat(tempTax.toFixed(2));
-    const total = subTotal + tax;
+    const total = Math.round(subTotal + tax);
     this.setState(() => {
       return {
         cartSubTotal: subTotal,
@@ -233,18 +265,23 @@ class AppProvider extends Component {
 
   render() {
     return (
-      <AppContext.Provider // AppContext.Provider sits on top of component tree
+      <AppContext.Provider
         value={{
           ...this.state,
           handleDetail: this.handleDetail,
           handleBlogDetail: this.handleBlogDetail,
+          handleSliderDetails: this.handleSliderDetails,
+          slideDetail: this.slideDetail,
           addToCart: this.addToCart,
           openModal: this.openModal,
           closeModal: this.closeModal,
           incrementCart: this.incrementCart,
           decrementCart: this.decrementCart,
           removeItem: this.removeItem,
-          clearCart: this.clearCart
+          clearCart: this.clearCart,
+          currentIndex: this.currentIndex,
+          translateValue: this.translateValue
+
         }}
       >
         {this.props.children}

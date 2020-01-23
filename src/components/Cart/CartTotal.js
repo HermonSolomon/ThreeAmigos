@@ -2,7 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 export default function CartTotal({ value }) {
+
   const { cartSubTotal, cartTotal, cartTax, clearCart } = value;
+  
   return (
     <React.Fragment>
       <div className="container">

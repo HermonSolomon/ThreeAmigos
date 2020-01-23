@@ -2,7 +2,7 @@ import React from "react";
 import "./App.css";
 import Navigation from "./components/Navigation";
 import ContentArea from "./components/ContentArea";
-import BlogList from "./components/Blog";
+import BlogList from "./components/BlogList";
 import Details from "./components/Details";
 import About from "./components/About";
 import ProductList from "./components/ProductList";
