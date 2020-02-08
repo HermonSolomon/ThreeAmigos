@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { AppConsumer } from "../Context";
-import Slide from "./Slide";
+import MochaIcons from "./MochaIcons";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 // import styled from "styled-components"
 
@@ -42,6 +42,8 @@ export default class ContentArea extends Component {
      // });
 
      return (
+      <div>
+      <MochaIcons/>
       <section id={id} className={'content-area'}>
        <div
         className={"col-md-6 model"}
@@ -70,14 +72,7 @@ export default class ContentArea extends Component {
          >
           <h1>{header}</h1>
           <p>
-           Gastropub skateboard trust fund umami stumptown four loko.
-           Coloring book vegan you probably haven't heard of tshem raw
-           denim. Gentrify salvia plaid XOXO,quinoa neutra lumbersexual
-           whatever DIY try-hard vice health goth vape leggings celiac.
-           Ugh street art chillwave gastropub fam letterpress. Lorem
-           ipsum dolor, sit amet consectetur adipisicing elit. Aperiam
-           quod architecto illo facere ipsum iusto sit accusamus harum
-           maxime? Inventore non blanditiis facilis earum magnam!
+          {body}
                 </p>
          </div>
          <div className={"size"}>
@@ -119,12 +114,9 @@ export default class ContentArea extends Component {
         </div>
        </div>
       </section>
+      </div>
 
      );
-
-
-
-
 
     }}
    </AppConsumer>
