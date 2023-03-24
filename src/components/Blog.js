@@ -7,13 +7,12 @@ import PropTypes from "prop-types";
 export default class Blog extends Component {
   render() {
     const { id, img, title, header } = this.props.article;
-    // console.log(this.props.article);
 
     return (
       <BlogArticleWrapper className="col-9 mx-auto col-sdm-6 col-lg-6 my-3">
         <div className="card">
           <AppConsumer>
-            {value => (
+            {(value) => (
               <div
                 className="img-container p-5"
                 onClick={() => value.handleBlogDetail(id)}
@@ -42,8 +41,8 @@ Blog.propTypes = {
     id: PropTypes.number,
     img: PropTypes.string,
     title: PropTypes.string,
-    header: PropTypes.string
-  }).isRequired
+    header: PropTypes.string,
+  }).isRequired,
 };
 
 const BlogArticleWrapper = styled.div`
